@@ -13,7 +13,8 @@ public class Task {
     private String title;
     @Column
     private String description;
-
+    @Column
+    private Boolean status; // true = completada false = pendiente
 
 
     public Long getId() {
@@ -38,5 +39,13 @@ public class Task {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
     }
 }
