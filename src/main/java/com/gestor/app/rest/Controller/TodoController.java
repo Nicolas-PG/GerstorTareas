@@ -20,7 +20,7 @@ public class TodoController {
     private ITodoRepository todoRepository;
     // CRUD sobre la entidad Task
 
-    // Buscar todos los libros de la base de datos
+    // Buscar todas las tareas en la base de datos
     @GetMapping(value = "/tasks")
     public List<Task>getTasks(){
         return todoRepository.findAll();
@@ -38,7 +38,7 @@ public class TodoController {
         }
     }
 
-    // Crear un nuevo libro en base de datos
+    // Crear una nueva tarea en base de datos
     @PostMapping(value = "/savetask")
     public ResponseEntity<Task> saveTask(@RequestBody Task task, @RequestHeader HttpHeaders headers){
         System.out.println(headers.get("User-Agent"));
@@ -50,26 +50,26 @@ public class TodoController {
         Task result = todoRepository.save(task);
         return ResponseEntity.ok(result);
     }
-    // Actualizar libro existente en base de datos
+    // Actualizar tarea existente en base de datos
     @PutMapping(value="/update/{id}")
     public ResponseEntity<Task> updateTask(@PathVariable Long id,@RequestBody Task task){
         if(task.getId() == null){
-            log.warn("Triying to update a non existent task");
+            log.warn("Trying to update a non existing task");
             return ResponseEntity.badRequest().build();
         }
         if (!todoRepository.existsById(task.getId())){
-            log.warn("Triying to update a non existent task");
+            log.warn("Trying to update a non existing task");
             return ResponseEntity.notFound().build();
         }
         Task result = todoRepository.save(task);
         return ResponseEntity.ok(result);
     }
 
-    //Borrar libro por id en base de datos
+    //Borrar tarea por id en base de datos
     @DeleteMapping(value="/delete/{id}")
     public ResponseEntity<Task> deleteTask(@PathVariable Long id){
         if(!todoRepository.existsById(id)){
-            log.warn("Triying to delete a non existent task");
+            log.warn("Trying to delete a non existent task");
             return ResponseEntity.notFound().build();
         }
         todoRepository.deleteById(id);
